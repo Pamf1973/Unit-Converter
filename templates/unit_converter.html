@@ -5,33 +5,37 @@
   <title>Unit Converter</title>
   <style>
     body {
-      background: linear-gradient(to right, #e0f7fa, #fff9c4);
+      background: linear-gradient(to right, #ffe0b2, #ffccbc);
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       text-align: center;
       padding: 50px;
     }
     h1 {
       font-size: 2.5em;
-      margin-bottom: 0.5em;
+      margin-bottom: 0.2em;
+    }
+    .emoji {
+      font-size: 2em;
+      margin-bottom: 20px;
     }
     .converter-box {
-      background-color: #ffffffcc;
-      border-radius: 12px;
+      background-color: #ffffffdd;
+      border-radius: 14px;
       padding: 30px;
       display: inline-block;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      box-shadow: 0 5px 25px rgba(0, 0, 0, 0.15);
     }
     input, select {
       padding: 10px;
-      margin: 10px;
-      width: 250px;
+      margin: 12px 0;
+      width: 260px;
       font-size: 1em;
-      border: 1px solid #ccc;
+      border: 1px solid #bbb;
       border-radius: 8px;
     }
     button {
-      padding: 10px 20px;
-      background-color: #4CAF50;
+      padding: 10px 22px;
+      background-color: #ff7043;
       color: white;
       font-size: 1em;
       border: none;
@@ -39,7 +43,7 @@
       cursor: pointer;
     }
     button:hover {
-      background-color: #45a049;
+      background-color: #f4511e;
     }
     .result {
       font-size: 1.2em;
@@ -49,11 +53,13 @@
   </style>
 </head>
 <body>
-  <h1>⚖️ Unit Converter</h1>
   <div class="converter-box">
+    <h1>Unit Converter</h1>
+    <div class="emoji" id="emoji-display">🔢</div>
+
     <form action="/convert" method="post">
       <input type="number" name="value" placeholder="Enter value" required /><br />
-      <select name="conversion_type">
+      <select name="conversion_type" id="conversion_type" onchange="updateEmoji()">
         <option value="feet_to_meters">Feet to Meters</option>
         <option value="meters_to_feet">Meters to Feet</option>
         <option value="pounds_to_kilos">Pounds to Kilograms</option>
@@ -63,7 +69,7 @@
         <option value="fluid_ounces_to_grams">Fluid Ounces to Grams</option>
         <option value="grams_to_fluid_ounces">Grams to Fluid Ounces</option>
       </select><br />
-      <button type="submit">Convert</button>
+      <button type="submit">Convert ⚙️</button>
     </form>
 
     {% if result %}
@@ -72,5 +78,27 @@
       </div>
     {% endif %}
   </div>
+
+  <script>
+    function updateEmoji() {
+      const emojiMap = {
+        "feet_to_meters": "📏",
+        "meters_to_feet": "📐",
+        "pounds_to_kilos": "🏋️",
+        "kilos_to_pounds": "⚖️",
+        "celsius_to_fahrenheit": "🌡️",
+        "fahrenheit_to_celsius": "🔥",
+        "fluid_ounces_to_grams": "🥤",
+        "grams_to_fluid_ounces": "🍯"
+      };
+      const select = document.getElementById("conversion_type");
+      const emojiDisplay = document.getElementById("emoji-display");
+      const selected = select.value;
+      emojiDisplay.textContent = emojiMap[selected] || "🔢";
+    }
+
+    // Set default emoji on page load
+    window.onload = updateEmoji;
+  </script>
 </body>
 </html>
