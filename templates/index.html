@@ -61,6 +61,7 @@
     <h2><span id="conversionEmoji">⚙️</span> <strong>Unit Converter</strong></h2>
 
     <input type="number" id="inputValue" placeholder="Enter value" />
+    <div id="emoji-display" style="font-size: 2rem;">⚙️</div>
 
     <select id="conversionType">
       <option value="poundsToKilograms">Pounds to Kilograms</option>
@@ -120,3 +121,27 @@
   </script>
 </body>
 </html>
+<script>
+  function updateEmoji() {
+    const emojiMap = {
+      "feet_to_meters": "📏",
+      "meters_to_feet": "📐",
+      "pounds_to_kilos": "🏋️",
+      "kilos_to_pounds": "⚖️",
+      "celsius_to_fahrenheit": "🌡️",
+      "fahrenheit_to_celsius": "🔥",
+      "fluid_ounces_to_grams": "🥤",
+      "grams_to_fluid_ounces": "🍯"
+    };
+    const select = document.getElementById("conversion_type");
+    const emojiDisplay = document.getElementById("emoji-display");
+    const selected = select.value;
+    emojiDisplay.textContent = emojiMap[selected] || "⚙️";
+  }
+
+  // Trigger once when the page loads
+  window.onload = updateEmoji;
+
+  // Trigger on every dropdown change
+  document.getElementById("conversion_type").addEventListener("change", updateEmoji);
+</script>
